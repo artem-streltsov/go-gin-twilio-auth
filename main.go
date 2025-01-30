@@ -20,10 +20,14 @@ func main() {
 	db.AutoMigrate(&models.User{})
 
 	twilioService := services.NewTwilioService()
-	authController := controllers.NewAuthController(db, twilioService)
 
 	router := gin.Default()
+
+	authController := controllers.NewAuthController(db, twilioService)
 	routes.AuthRoutes(router, authController)
+
+	profileController := controllers.NewProfileController(db)
+	routes.ProfileRoutes(router, profileController)
 
 	router.Run(os.Getenv("PORT"))
 }

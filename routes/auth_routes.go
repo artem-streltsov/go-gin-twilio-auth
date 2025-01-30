@@ -6,10 +6,7 @@ import (
 )
 
 func AuthRoutes(r *gin.Engine, ac *controllers.AuthController) {
-	auth := r.Group("/auth")
-	{
-		auth.POST("/register", ac.Register)
-		auth.POST("/send-verification", ac.StartPhoneVerification)
-		auth.POST("/verify", ac.VerifyPhone)
-	}
+	r.POST("/register", ac.RegisterUser)
+	r.POST("/login", ac.LoginUser)
+	r.POST("/verify", ac.VerifyAndGenerateJWT)
 }
